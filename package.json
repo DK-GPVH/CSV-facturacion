@@ -12,7 +12,6 @@
     "@testing-library/user-event": "^13.5.0",
     "flowbite": "^1.5.3",
     "flowbite-react": "^0.1.11",
-    "gh-pages": "^4.0.0",
     "react": "^18.2.0",
     "react-data-table-component": "^7.5.3",
     "react-dom": "^18.2.0",
@@ -29,7 +28,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
@@ -52,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "gh-pages": "^4.0.0",
     "tailwindcss": "^3.1.8"
   }
 }
