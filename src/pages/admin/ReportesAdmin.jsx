@@ -12,8 +12,10 @@ export default function ReportesAdmin() {
         <div className='flex flex-col'>
           <span className='my-4'>Filtrar Por:</span>
           <select name="" id="" className='rounded-lg border-gray-300'>
-            <option value="">UNO</option>
-            <option value="">DOS</option>
+            <option value="">Factura</option>
+            <option value="">Comprobante</option>
+            <option value="">Nota de crédito</option>
+            <option value="">Nota de débito</option>
           </select>
         </div>
         <div className='flex flex-col'>

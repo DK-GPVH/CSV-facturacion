@@ -32,23 +32,24 @@ export default function Empresa() {
       selector: (row) => row.Acciones,
       cell: () => [
         <>
-          <AiFillEdit onClick={openModal} className="p-4 bg-black cursor-pointer text-cyan-500"></AiFillEdit>
+          <AiFillEdit onClick={openModal} color="#7E56DA" className="cursor-pointer" size="25px"></AiFillEdit>
 
           <AiOutlineMinusCircle
             onClick={() => {
               alert('ocultar')
             }}
-            className="p-4 bg-black cursor-pointer text-cyan-500"
+            color="#7E56DA" className="cursor-pointer" size="25px"
           ></AiOutlineMinusCircle>
 
           <FiDelete
             onClick={() => {
               alert('eliminado')
             }}
-            className="p-4 bg-black cursor-pointer text-cyan-500"
+            color="#DA5656" className="cursor-pointer" size="25px"
           ></FiDelete>
         </>,
       ],
+      sortable: true,
     },
   ]
 

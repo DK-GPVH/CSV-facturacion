@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 
 export default function WriteRUC({onRUC}) {
-    const [Input, setInput] = useState(0);
+    const [Input, setInput] = useState(null);
     const onInputChange=({target})=>{ 
         setInput(target.value);
     }

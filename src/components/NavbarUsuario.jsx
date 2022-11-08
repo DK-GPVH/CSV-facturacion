@@ -5,7 +5,7 @@ import { FaClosedCaptioning, FaTicketAlt, FaUserAlt } from 'react-icons/fa'
 import { BsFillCaretRightSquareFill } from 'react-icons/bs'
 import { NavLink, useLocation } from 'react-router-dom'
 
-export default function NavbarUsuario() {
+export default function NavbarUsuario({rol}) {
   const location = useLocation()
   const { pathname } = location
   const storedSidebarExpanded = localStorage.getItem('sidebar-expanded')
@@ -40,7 +40,7 @@ export default function NavbarUsuario() {
               <div className="flex items-center px-2 py-3 mb-4 text-white rounded-lg hover:text-black hover:bg-white">
                 <div className="flex items-center">
                   <FaUserAlt className="text-xl" />
-                  <span className="ml-4 text-sm font-semibold">USUARIO</span>
+                  <span className="ml-4 text-sm font-semibold">{rol}</span>
                 </div>
                 {/* Icon */}
                 <div className="flex ml-2 shrink-0">
@@ -65,9 +65,9 @@ export default function NavbarUsuario() {
                   <NavLink
                     end
                     to="/perfil"
-                    className="block p-1 truncate transition duration-150 rounded-md hover:bg-red-50 hover:text-black text-slate-400 hover:text-slate-200"
+                    className="block p-1 truncate transition duration-150 rounded-md  hover:bg-red-50 hover:text-black text-slate-400 hover:text-slate-200"
                   >
-                    <span className="font-medium duration-200 text-md lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
+                    <span className="font-medium duration-200  text-md lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
                       Perfil
                     </span>
                   </NavLink>
@@ -82,7 +82,7 @@ export default function NavbarUsuario() {
                   <NavLink
                     end
                     to="/"
-                    className="block p-1 truncate transition duration-150 rounded-md hover:bg-red-50 hover:text-black text-slate-400 hover:text-slate-200"
+                    className="block p-1 truncate transition duration-150 rounded-md  hover:bg-red-50 hover:text-black text-slate-400 hover:text-slate-200"
                   >
                     <span className="font-medium duration-200 text-md lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
                       Configuracion
@@ -99,7 +99,7 @@ export default function NavbarUsuario() {
                   <NavLink
                     end
                     to="/"
-                    className="block p-1 truncate transition duration-150 rounded-md hover:bg-red-50 hover:text-black text-slate-400 hover:text-slate-200"
+                    className="block p-1 truncate transition duration-150 rounded-md  hover:bg-red-50 hover:text-black text-slate-400 hover:text-slate-200"
                   >
                     <span className="font-medium duration-200 text-md lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
                       Salir

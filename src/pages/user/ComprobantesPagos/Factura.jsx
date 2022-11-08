@@ -1,13 +1,8 @@
 import React, { useState } from 'react'
-import { Button } from '@material-tailwind/react'
-import { CgInsertAfterR } from 'react-icons/cg'
 import { FaFolderPlus } from 'react-icons/fa'
-import FacturaSearch from '../../../components//user/factura/FacturaSearch'
 import TablaFactura from '../../../components/user/factura/TablaFactura'
 import TipoPago from '../../../components/user/factura/TipoPago'
-import GetDni from '../../../components/user/factura/GetDni'
-
-import pru from './pru'
+import DatesSearch from '../../../components/user/factura/DatesSearch'
 
 export default function Factura() {
   const [visible, setVisible] = useState(false)
@@ -55,14 +50,7 @@ export default function Factura() {
             </div>
 
             <div className="grid grid-cols-8 gap-4 col-span-full lg:col-span-8">
-              <div className="col-span-full sm:col-span-2">
-                <label className="text-sm">Tipo de Documento</label>
-                <select className="w-full text-gray-900 rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 dark:border-gray-700">
-                  <option>RUC</option>
-                </select>
-              </div>
-
-              <FacturaSearch></FacturaSearch>
+              <DatesSearch onDocumento={"factura"}></DatesSearch>
 
               <div className="col-span-full lg:col-span-2">
                 <label className="text-sm">Productos o servicios</label>
@@ -94,16 +82,17 @@ export default function Factura() {
                   <div className="col-span-6">
                     <div className="flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700">
                       <input
+                       defaultChecked
                         id="bordered-radio-1"
                         type="radio"
                         defaultValue
+                        onClick={() => setVisible(false)}
                         name="bordered-radio"
                         className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                       />
                       <label
                         htmlFor="bordered-radio-1"
                         className="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                        onClick={() => setVisible(false)}
                       >
                         Contado
                       </label>
@@ -113,17 +102,17 @@ export default function Factura() {
                   <div className="col-span-6">
                     <div className="flex items-center pl-4 border border-gray-200 rounded dark:border-gray-700">
                       <input
-                        defaultChecked
                         id="bordered-radio-2"
                         type="radio"
                         defaultValue
                         name="bordered-radio"
                         className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                      />
+                        onClick={() => setVisible(true)}
+                     />
                       <label
                         htmlFor="bordered-radio-2"
                         className="w-full py-4 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                        onClick={() => setVisible(true)}
+                        
                       >
                         Crédito
                       </label>
@@ -145,49 +134,49 @@ export default function Factura() {
                 <div className="border-t border-[#2F9B86]" />
                 <div className="flex flex-wrap overflow-hidden lg:-mx-px">
                   <div className="w-full overflow-hidden text-right lg:my-px lg:px-px xl:w-1/2">
-                    <h1 className="py-3 pr-4 text-xs font-medium text-gray-700">SUB TOTAL</h1>
+                    <h1 className="py-3 pr-4 text-xs font-medium text-[#2F9B86]">SUB TOTAL</h1>
                   </div>
                   <div className="w-full overflow-hidden lg:my-px lg:px-px xl:w-1/2">
                     <input
                       type="text"
                       disabled
-                      className="mt-2 block w-full h-6 rounded-md bg-gray-200 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                      className="mt-2 block border-none w-full h-6 rounded-md bg-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                     />
                   </div>
 
                   <div className="w-full overflow-hidden text-right lg:my-px lg:px-px xl:w-1/2">
-                    <h1 className="py-3 pr-4 text-xs font-medium text-gray-700">OP. EXONERADAS</h1>
+                    <h1 className="py-3 pr-4 text-xs font-medium text-[#2F9B86]">OP. EXONERADAS</h1>
                   </div>
 
                   <div className="w-full overflow-hidden lg:my-px lg:px-px xl:w-1/2">
                     <input
                       type="text"
                       disabled
-                      className="mt-2 block w-full h-6 rounded-md bg-gray-200 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                      className="mt-2 block border-none w-full h-6 rounded-md bg-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                     />
                   </div>
 
                   <div className="w-full overflow-hidden text-right lg:my-px lg:px-px xl:w-1/2">
-                    <h1 className="py-3 pr-4 text-xs font-medium text-gray-700">DESCUENTO</h1>
+                    <h1 className="py-3 pr-4 text-xs font-medium text-[#2F9B86]">DESCUENTO</h1>
                   </div>
 
                   <div className="w-full overflow-hidden lg:my-px lg:px-px xl:w-1/2">
                     <input
                       type="text"
                       disabled
-                      className="mt-2 block w-full h-6 rounded-md bg-gray-200 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                      className="mt-2 block border-none w-full h-6 rounded-md bg-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                     />
                   </div>
 
                   <div className="w-full overflow-hidden text-right lg:my-px lg:px-px xl:w-1/2">
-                    <h1 className="py-3 pr-4 text-xs text-gray-700 font-xs">IGV (18%)</h1>
+                    <h1 className="py-3 pr-4 text-xs text-[#2F9B86] font-xs">IGV (18%)</h1>
                   </div>
 
                   <div className="w-full overflow-hidden lg:my-px lg:px-px xl:w-1/2">
                     <input
                       type="text"
                       disabled
-                      className="mt-2 block w-full h-6 rounded-md bg-gray-200 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+                      className="mt-2 block border-none w-full h-6 rounded-md bg-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
                     />
                   </div>
 
@@ -220,9 +209,6 @@ export default function Factura() {
           <button className='bg-white border-2 border-[#2F9B86] rounded-md py-4 px-6 m-2 mx-6 font-bold'>Cancelar</button>
         </div>
       </div>
-      <Button>
-        <pru />
-      </Button>
     </div>
   )
 }

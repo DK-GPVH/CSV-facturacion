@@ -7,7 +7,7 @@ import { IoIosCloseCircle } from 'react-icons/io'
 import { IoNotificationsCircle } from 'react-icons/io5'
 import NavbarUsuario from './NavbarUsuario'
 
-export default function Navbar({ OpenSidebar, setOpenSidebar }) {
+export default function Navbar({ OpenSidebar, setOpenSidebar ,onRol}) {
   return (
     <header className="sticky top-0 bg-[#151423] border-none z-30">
       <div className="px-4 sm:px-6 lg:px-8">
@@ -43,7 +43,7 @@ export default function Navbar({ OpenSidebar, setOpenSidebar }) {
               <hr className="w-px h-8 mx-3 bg-gray-200 " />
             </div>
             <div className="mt-2">
-              <NavbarUsuario></NavbarUsuario>
+              <NavbarUsuario rol={onRol}></NavbarUsuario>
             </div>
           </div>
         </div>

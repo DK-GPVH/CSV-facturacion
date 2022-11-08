@@ -30,7 +30,7 @@ import { BsFileBarGraphFill } from 'react-icons/bs'
 
 import { BsFillCaretRightSquareFill } from 'react-icons/bs'
 
-export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
+export default function Sidebar({ sidebarOpen, setSidebarOpen , rol}) {
   const [OpenSidebar, setOpenSidebar] = useState('-left-64')
 
   const location = useLocation()
@@ -50,7 +50,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
   }, [sidebarExpanded])
   return (
     <>
-      <Navbar OpenSidebar={OpenSidebar} setOpenSidebar={setOpenSidebar} />
+      <Navbar OpenSidebar={OpenSidebar} setOpenSidebar={setOpenSidebar} onRol={rol} />
 
       <div className={`bg-[#151423] w-64 z-40 py-4 px-2 h-screen fixed top-0 md:left-0  ${OpenSidebar}    `}>
         <div className="h-screen overflow-y-auto">
@@ -189,79 +189,6 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
                           >
                             <span className="text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
                               Emitir nota de Débito
-                            </span>
-                          </NavLink>
-                        </li>
-
-                        <li className="mb-1 last:mb-0">
-                          <NavLink
-                            end
-                            to="/nventa"
-                            className="block px-5 py-2 truncate transition duration-150 rounded-md hover:bg-red-50 hover:text-black text-slate-400 hover:text-slate-200"
-                          >
-                            <span className="text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
-                              Emitir nota de venta
-                            </span>
-                          </NavLink>
-                        </li>
-                      </ul>
-                    </div>
-                  </React.Fragment>
-                )
-              }}
-            </SubMenu>
-
-            <SubMenu activecondition={pathname.includes('remision')}>
-              {(handleClick, open) => {
-                return (
-                  <React.Fragment>
-                    <a
-                      href="#0"
-                      className={`text-slate-200 text-white  hover:text-white truncate transition duration-150 ${
-                        pathname.includes('comprobante') && 'hover:text-slate-200'
-                      }`}
-                      onClick={(e) => {
-                        e.preventDefault()
-                        sidebarExpanded ? handleClick() : setSidebarExpanded(true)
-                      }}
-                    >
-                      <div className="flex items-center px-2 py-3 mb-4 text-white rounded-lg hover:text-black hover:bg-white">
-                        <div className="flex items-center">
-                          <FaTicketAlt className="text-xl" />
-                          <span className="ml-4 text-sm font-semibold">Guia de remision</span>
-                        </div>
-                        {/* Icon */}
-                        <div className="flex ml-2 shrink-0">
-                          <BsFillCaretRightSquareFill
-                            className={`w-3 h-3 shrink-0 ml-1  fill-current text-[#2ad341] mr-4 ${
-                              open && 'transform rotate-90'
-                            }`}
-                          />
-                        </div>
-                      </div>
-                    </a>
-
-                    <div className="text-white bg-black rounded-lg lg:hidden lg:sidebar-expanded:block 2xl:block">
-                      <ul className={`pl-9 mt-1 ${!open && 'hidden'}`}>
-                        <li className="mb-1 last:mb-0">
-                          <NavLink
-                            end
-                            to="/"
-                            className="block p-1 truncate transition duration-150 rounded-md hover:bg-red-50 hover:text-black text-slate-400 hover:text-slate-200"
-                          >
-                            <span className="text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
-                              Crear Guia de Remision
-                            </span>
-                          </NavLink>
-                        </li>
-                        <li className="mb-1 last:mb-0">
-                          <NavLink
-                            end
-                            to="/"
-                            className="block p-1 truncate transition duration-150 rounded-md hover:bg-red-50 hover:text-black text-slate-400 hover:text-slate-200"
-                          >
-                            <span className="text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
-                              Listar Guias de Remision
                             </span>
                           </NavLink>
                         </li>

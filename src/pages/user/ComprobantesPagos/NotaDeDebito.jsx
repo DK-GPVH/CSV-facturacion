@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaSearch, FaUserAlt } from 'react-icons/fa'
+import NamesSearch from '../../../components/user/factura/NamesSearch'
 
 export default function NotaDeDebito() {
   return (
@@ -15,33 +15,7 @@ export default function NotaDeDebito() {
               <option>Penalidad</option>
             </select>
           </div>
-          <div className="flex flex-row flex-wrap justify-between my-2">
-            <div className="flex flex-col mx-2">
-              <span className="my-2 text-left font-md">Tipo de Documento</span>
-              <select className="border-none rounded-md shadow-md">
-                <option>DNI</option>
-                <option>RUC</option>
-              </select>
-            </div>
-            <div className="flex flex-col mx-2">
-              <span className="my-2 text-left font-md">Doc. de Identidad</span>
-              <span className="flex flex-row rounded-md shadow-md">
-                <input type="number" className="border-none rounded-l-md w-[90%]" />
-                <button className="inline-flex items-center p-2 text-sm text-white bg-[#2F9B86] rounded-r-md ">
-                  <FaSearch></FaSearch>
-                </button>
-              </span>
-            </div>
-          </div>
-          <div className="flex flex-col my-2">
-            <span className="my-2 text-left font-md">Nombre o Razon Social</span>
-            <div className="flex flex-row rounded-md shadow-md">
-              <span className="inline-flex justify-center items-center p-2 text-sm text-white bg-[#2F9B86] rounded-l-md w-[10%]">
-                <FaUserAlt />
-              </span>
-              <input type="text" className="border-none rounded-r-md w-[90%]" />
-            </div>
-          </div>
+          <NamesSearch></NamesSearch>
           <div className="flex flex-col my-2">
             <span className="my-2 text-left font-md">Motivo</span>
             <textarea className="border-none rounded-md shadow-md"></textarea>

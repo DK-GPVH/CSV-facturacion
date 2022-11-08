@@ -1,44 +1,89 @@
 import React from 'react'
-import fondo from '../assets/img/fondo.jpg'
 import logo from '../assets/img/logo.png'
 
 import { Input } from '@material-tailwind/react'
 import { Button } from '@material-tailwind/react'
+import { useState } from 'react'
+import { postLogin } from '../components/helpers/postLogin'
 
-export default function Login() {
-  const backgroundImageStyle = {
-    backgroundImage: `url("${fondo}")`,
+export default function Login({onUser}) {
+
+  const [error,setError] = useState(" ");
+
+
+  const Logear = (dni,pass) =>{
+    postLogin(dni,pass).then(data=>{
+      data.exception?setError({error: "credenciales incorrectas verifique su informacion"}):onUser({
+        name: data.user.name,
+        rol : data.user.role
+      })
+    })
   }
 
-  return (
-    <div className="flex justify-center h-screen " style={backgroundImageStyle}>
-      <div>
-        <div className="flex items-center justify-center h-screen">
-          <div className="flex backdrop-blur-sm bg-white/30 rounded-2xl	p-4 2xl:w-[900px]  justify-center">
-            <div className="p-2 px-8 pt-8 bg-white h-3/4 rounded-2xl">
-              <div className="flex justify-center h-16 w-22 ">
-                <img src={logo} alt="Logo" />
-              </div>
+  function submitHandler(e){
+    e.preventDefault();
+    const dni = e.target.elements.dniValue.value.trim();
+    const password = e.target.elements.passValue.value.trim();
 
-              <h1 className="pt-4 font-sans text-4xl font-extrabold text-center ">LOGIN</h1>
-              <form className="grid justify-center">
-                <div className="pt-8 w-72">
-                  <Input color="teal" label="RUC" type="num" />
-                </div>
-                <div className="pt-8">
-                  <Input color="teal" label="CONTRASEÑA" type="password" />
-                </div>
-                <span className="text-right text-[#2F9B86]">Recuperar Acceso</span>
-                <div className="grid justify-center pt-8 pb-20">
-                  <Button className="w-72 bg-[#2F9B86]">
-                    <a href="Main">INGRESAR</a>{' '}
-                  </Button>
-                </div>
-              </form>
+
+    if(dni.length !==8){
+      setError({error : "Cantidad de digitos de dni incorrectos"})
+    }else if(password.length !== 8){
+      setError({error: "La contraseña debe ser de 6 digitos"})
+    }else{
+      Logear(dni,password);
+    }   
+  }
+  
+  return (
+    <div className="flex justify-center  h-screen bg-gradient-to-r  from-[#26306A] via-[#2B657F] to-[#2F9B86] overscroll-contain overflow-y-visible">
+    
+    <div className="flex items-center justify-center">
+      <div className="flex justify-center backdrop-blur-sm bg-black/30 p-4 rounded-2xl">
+        <div className="bg-white py-8 px-4 rounded-2xl">
+          <div className="flex flex-col justify-center ">
+            <div className="flex justify-center h-32 w-[100%] " >
+              <img src={logo} alt="Logo" />
             </div>
+            <h1 className="pt-4 font-sans text-4xl font-bold text-center">
+              LOGIN
+            </h1>
+            <form  className="flex flex-col justify-center" onSubmit={submitHandler}>
+              <div className="p-2">
+                <Input color="teal" label="DNI" type="number" id="dniValue"/>
+              </div>
+              <div className="p-2">
+                <Input
+                  color="teal"
+                  label="CONTRASEÑA"
+                  type="password"
+                  id="passValue"
+                />
+              </div>
+              <span className="text-right text-[#2F9B86]">
+                Recuperar Acceso
+              </span>
+              <div className="flex justify-center p-2">
+                <Button
+                  className="w-[80%] bg-[#2F9B86]"
+                  value="INGRESAR"
+                  type="submit"
+                  id="btnIngresar"
+                >
+                  Ingresar
+                </Button>
+              </div>
+              {
+                error.error&&<div
+                className="flex justify-center p-3 m-2 text-red-700"
+                id="loginMessage"
+                >{`${error.error}`}</div>
+              }  
+            </form>
           </div>
         </div>
       </div>
     </div>
+  </div>
   )
 }
