@@ -20,17 +20,28 @@ import NotaDeDedito from './pages/user/ComprobantesPagos/NotaDeDebito'
 import ProductosYServicios from './pages/user/ProductosYServicios'
 import Perfil from './pages/user/Perfil/Perfil'
 import Login from './pages/Login'
+import ConfiguracionEmpresa from './pages/admin/ConfiguracionEmpresa'
+import { logoutLogin } from './components/helpers/logoutLogin'
 
 function App() {
     const [user,setUser] = useState(null);
 
+    const Logout=(data)=>{
+        const token = document.cookie.replace('token=','')
+        data.salir&&logoutLogin(user.email,token).then((data)=>{
+          if(data.message === "sesion cerrada"){
+            console.log(data);
+            setUser(null)
+          }
+        })
+    }
     
 
   return (
     <>
       {
         user ?<div>
-        <Sidebar rol={`${user.rol} : ${user.name}`} />
+        <Sidebar rol={`${user.rol} : ${user.name}`} onLogoutAccount={(data)=>Logout(data)}/>
   
         <div>
           <main>
@@ -53,6 +64,7 @@ function App() {
                 <Route path="/boleta" element={<Boleta />} />
                 <Route path="/ncredito" element={<NotaDeCredito />} />
                 <Route path="/ndebito" element={<NotaDeDedito />} />
+                <Route path='/configuracionempresa' element={<ConfiguracionEmpresa/>}/>
               </Routes>
             </div>
           </main>

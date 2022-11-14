@@ -5,7 +5,7 @@ import { FaClosedCaptioning, FaTicketAlt, FaUserAlt } from 'react-icons/fa'
 import { BsFillCaretRightSquareFill } from 'react-icons/bs'
 import { NavLink, useLocation } from 'react-router-dom'
 
-export default function NavbarUsuario({rol}) {
+export default function NavbarUsuario({rol , onLogout}) {
   const location = useLocation()
   const { pathname } = location
   const storedSidebarExpanded = localStorage.getItem('sidebar-expanded')
@@ -13,6 +13,9 @@ export default function NavbarUsuario({rol}) {
     storedSidebarExpanded === null ? false : storedSidebarExpanded === 'true',
   )
 
+  const logout = ()=>{
+    onLogout({salir: true})
+  }
   useEffect(() => {
     localStorage.setItem('sidebar-expanded', sidebarExpanded)
     if (sidebarExpanded) {
@@ -100,6 +103,7 @@ export default function NavbarUsuario({rol}) {
                     end
                     to="/"
                     className="block p-1 truncate transition duration-150 rounded-md  hover:bg-red-50 hover:text-black text-slate-400 hover:text-slate-200"
+                    onClick={logout}
                   >
                     <span className="font-medium duration-200 text-md lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
                       Salir

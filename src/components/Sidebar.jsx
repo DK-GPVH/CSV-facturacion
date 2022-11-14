@@ -29,9 +29,14 @@ import { HiTicket } from 'react-icons/hi'
 import { BsFileBarGraphFill } from 'react-icons/bs'
 
 import { BsFillCaretRightSquareFill } from 'react-icons/bs'
+import { IoLogOut } from 'react-icons/io5'
 
-export default function Sidebar({ sidebarOpen, setSidebarOpen , rol}) {
+export default function Sidebar({ sidebarOpen, setSidebarOpen , rol, onLogoutAccount}) {
   const [OpenSidebar, setOpenSidebar] = useState('-left-64')
+
+  const Logout=(data)=>{
+    onLogoutAccount(data) 
+  }
 
   const location = useLocation()
   const { pathname } = location
@@ -50,7 +55,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen , rol}) {
   }, [sidebarExpanded])
   return (
     <>
-      <Navbar OpenSidebar={OpenSidebar} setOpenSidebar={setOpenSidebar} onRol={rol} />
+      <Navbar OpenSidebar={OpenSidebar} setOpenSidebar={setOpenSidebar} onRol={rol} onLogout={(data)=>Logout(data)}/>
 
       <div className={`bg-[#151423] w-64 z-40 py-4 px-2 h-screen fixed top-0 md:left-0  ${OpenSidebar}    `}>
         <div className="h-screen overflow-y-auto">

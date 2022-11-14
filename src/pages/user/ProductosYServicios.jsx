@@ -4,13 +4,13 @@ import { Fragment, useState } from 'react'
 import DataTable from 'react-data-table-component'
 import { AiFillEdit, AiOutlineMinusCircle } from 'react-icons/ai'
 import { FiDelete } from 'react-icons/fi'
-import { HiUserAdd } from 'react-icons/hi'
 import { BsBox } from 'react-icons/bs'
 export default function ProductosYServicios() {
+
   const columns = [
     {
       name: 'Código',
-      selector: (row) => row.Codigo,
+      selector: (row) => row.codigo,
       sortable: true,
     },
     {
@@ -20,88 +20,52 @@ export default function ProductosYServicios() {
     },
     {
       name: 'Categoria',
-      selector: (row) => row.Categoria,
+      selector: (row) => row.categoria,
       sortable: true,
     },
     {
       name: 'Precio unitario',
-      selector: (row) => row.PrecioUnitario,
+      selector: (row) => row.precio_Unitario,
       sortable: true,
     },
     {
       name: 'Unidad de medida',
-      selector: (row) => row.UnidadDeMedida,
+      selector: (row) => row.unidad_Medida,
       sortable: true,
     },
     {
       name: 'Stock',
-      selector: (row) => row.Stock,
+      selector: (row) => row.stock,
       sortable: true,
     },
     {
       name: 'Fecha de registro',
-      selector: (row) => row.FechaRegistro,
+      selector: (row) => row.fecha_Registro,
       sortable: true,
     },
     {
       name: 'Acciones',
-      selector: (row) => row.Opciones,
+      selector: (row) => row.Acciones,
     },
   ]
 
   const data = [
     {
-      id: 'EMP-1',
-      RUC: '20515290142',
-      RazSoc: 'Clinica Medica Cayetano Heredia',
-      Estado: 'Activo',
+      codigo: 'PRD-1',
+      Nombre: 'Producto 1',
+      categoria: 'Categoria 1',
+      precio_Unitario: 100,
+      unidad_Medida: 'kg',
+      stock: 1000,
+      fecha_Registro: "2012-04-23T18:25:43.511Z",
       Acciones: (
         <div className="flex gap-3">
-          <AiFillEdit color="#7E56DA" className="cursor-pointer" size="25px" onClick={openModal} />
+          <AiFillEdit color="#7E56DA" className="cursor-pointer" size="25px" onClick={() => open('PRD-1')} />
           <AiOutlineMinusCircle color="#7E56DA" className="cursor-pointer" size="25px" />
           <FiDelete color="#DA5656" className="cursor-pointer" size="25px" />
         </div>
       ),
-    },
-    {
-      id: 'EMP-2',
-      RUC: '20515290142',
-      RazSoc: 'Clinica Medica Cayetano Heredia',
-      Estado: 'Activo',
-      Acciones: (
-        <div className="flex gap-3">
-          <AiFillEdit color="#7E56DA" className="cursor-pointer" size="25px" />
-          <AiOutlineMinusCircle color="#7E56DA" className="cursor-pointer" size="25px" />
-          <FiDelete color="#DA5656" className="cursor-pointer" size="25px" />
-        </div>
-      ),
-    },
-    {
-      id: 'EMP-3',
-      RUC: '20515290142',
-      RazSoc: 'Clinica Medica Cayetano Heredia',
-      Estado: 'Activo',
-      Acciones: (
-        <div className="flex gap-3">
-          <AiFillEdit color="#7E56DA" className="cursor-pointer" size="25px" />
-          <AiOutlineMinusCircle color="#7E56DA" className="cursor-pointer" size="25px" />
-          <FiDelete color="#DA5656" className="cursor-pointer" size="25px" />
-        </div>
-      ),
-    },
-    {
-      id: 'EMP-4',
-      RUC: '20515290142',
-      RazSoc: 'Clinica Medica Cayetano Heredia',
-      Estado: 'Activo',
-      Acciones: (
-        <div className="flex gap-3">
-          <AiFillEdit color="#7E56DA" className="cursor-pointer" size="25px" />
-          <AiOutlineMinusCircle color="#7E56DA" className="cursor-pointer" size="25px" />
-          <FiDelete color="#DA5656" className="cursor-pointer" size="25px" />
-        </div>
-      ),
-    },
+    }
   ]
   let [isOpen, setIsOpen] = useState(false)
   function closeModal() {
@@ -110,22 +74,39 @@ export default function ProductosYServicios() {
   function openModal() {
     setIsOpen(true)
   }
+  let [isOpenUpdate, setIsOpenUpdate] = useState(false)
+  function closeModalUpdate() {
+    setIsOpenUpdate(false)
+  }
+  function openModalUpdate() {
+    setIsOpenUpdate(true)
+  }
+  let [producto, setProducto] = useState({})
+  function open(codigo) {
+    data.map((producto) => {
+      if (producto.codigo === codigo) {
+        return setProducto(producto)
+      }
+      return {}
+    })
+    openModalUpdate()
+  }
   return (
     <div className="p-4">
       <h1>Configuración - Empresa</h1>
       <div className="p-6">
         <div className="flex justify-between">
           <div className="w-2/4">
-            <Input size="lg" label="Buscar por categoria" />
+            <Input size="lg" label="Buscar Item" />
           </div>
           <div>
             <Button className="flex bg-[#2F9B86]" onClick={openModal}>
-              <BsBox className="mr-2" /> Nuevo producto o servicio
+              <BsBox className="mr-2" /> Nuevo Producto o Servicio
             </Button>
           </div>
         </div>
         <div className="mt-6 border-2 border-gray-200 rounded-md">
-          <DataTable columns={columns} data={data} pagination highlightOnHover responsive />
+          <DataTable columns={columns} data={data} pagination highlightOnHover />
         </div>
       </div>
       <Transition appear show={isOpen} as={Fragment}>
@@ -153,146 +134,148 @@ export default function ProductosYServicios() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-1/2 p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-                  <Dialog.Title as="h3" className="mb-6 text-lg font-bold leading-6 text-gray-900">
-                    Nuevo producto o servicio
+                <Dialog.Panel className="w-full max-w-xl p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                  <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
+                    Nuevo Producto/Servicio
                   </Dialog.Title>
+                  <hr className="h-px w-[100%] bg-gray-200" />
                   <form action="">
-                    <div>
-                      <div className="grid grid-cols-2 gap-10">
-                        <div>
-                          <label>Usuario SOL</label>
-                          <input
-                            type="text"
-                            className="w-full mt-1 transition-all rounded-lg border-blue-gray-100"
-                            required={true}
-                          />
+                    <div className="flex flex-col m-6 mt-2">
+                      <div className="flex flex-wrap justify-between">
+                        <div className="flex flex-col">
+                          <span className="my-2">C&oacute;digo</span>
+                          <input type="text" className="border border-gray-300 rounded-lg opacity-75" disabled />
                         </div>
-                        <div>
-                          <label>Contraseña SOL</label>
-
-                          <input
-                            type="text"
-                            className="w-full mt-1 transition-all rounded-lg border-blue-gray-100"
-                            required={true}
-                          />
+                        <div className="flex flex-col">
+                          <span className="my-2">Nombre</span>
+                          <input type="text" className="border border-gray-300 rounded-lg" />
                         </div>
                       </div>
-                      <div className="grid grid-cols-3 gap-10 mt-6">
-                        <div>
-                          <label>RUC</label>
-                          <br />
-                          <input
-                            type="text"
-                            className="w-full mt-1 transition-all rounded-lg border-blue-gray-100"
-                            required="true"
-                          />
+                      <div className="flex flex-wrap justify-between">
+                        <div className="flex flex-col">
+                          <span className="my-2">Categor&iacute;a</span>
+                          <input type="email" className="border border-gray-300 rounded-lg" />
                         </div>
-                        <div>
-                          <label>Razón social</label>
-                          <br />
-                          <input
-                            type="text"
-                            className="w-full mt-1 transition-all rounded-lg border-blue-gray-100"
-                            required="true"
-                          />
-                        </div>
-                        <div>
-                          <label>Dirección</label>
-                          <br />
-                          <input
-                            type="text"
-                            className="w-full mt-1 transition-all rounded-lg border-blue-gray-100"
-                            required="true"
-                          />
+                        <div className="flex flex-col">
+                          <span className="my-2">Precio Unitario</span>
+                          <input type="text" className="border border-gray-300 rounded-lg" />
                         </div>
                       </div>
-                      <div className="grid grid-cols-3 gap-10 mt-6">
-                        <div>
-                          <label>Departamento</label>
-
-                          <select
-                            name=""
-                            id=""
-                            className="w-full mt-1 transition-all rounded-lg border-blue-gray-100"
-                            required={true}
-                          >
-                            <option>Seleccione</option>
-                            <option>Lima</option>
-                            <option>Piura</option>
-                            <option>Arequipa</option>
-                            <option>Junin</option>
-                          </select>
+                      <div className="flex flex-wrap justify-between">
+                        <div className="flex flex-col">
+                          <span className="my-2">Unidad de Medida</span>
+                          <input type="number" className="border border-gray-300 rounded-lg" min={0}/>
                         </div>
-                        <div>
-                          <label>Provincia</label>
-
-                          <select
-                            name=""
-                            id=""
-                            className="w-full mt-1 transition-all rounded-lg border-blue-gray-100"
-                            required={true}
-                          >
-                            <option>Seleccione</option>
-                            <option>prov-01</option>
-                            <option>prov-02</option>
-                            <option>prov-03</option>
-                            <option>prov-04</option>
-                          </select>
-                        </div>
-                        <div>
-                          <label>Distrito</label>
-
-                          <select
-                            name=""
-                            id=""
-                            className="w-full mt-1 transition-all rounded-lg border-blue-gray-100"
-                            required="true"
-                          >
-                            <option>Seleccione</option>
-                            <option>distri-01</option>
-                            <option>distri-02</option>
-                            <option>distri-03</option>
-                            <option>distri-04</option>
-                          </select>
+                        <div className="flex flex-col">
+                          <span className="my-2">Stock</span>
+                          <input type="number" className="border border-gray-300 rounded-lg" min={0}/>
                         </div>
                       </div>
-                      <div className="grid grid-cols-2 gap-3 mt-6">
-                        <div>
-                          <label>Certificado</label>
-                          <br />
-                          <input
-                            type="file"
-                            className="w-full mt-1 transition-all rounded-lg border-blue-gray-100"
-                            required={true}
-                          />
-                        </div>
-                        <div>
-                          <label>Logo</label>
-                          <br />
-                          <input
-                            type="file"
-                            className="w-full mt-1 transition-all rounded-lg border-blue-gray-100"
-                            required={true}
-                          />
+                      <div className="flex items-center justify-center mt-4">
+                        <div className="flex flex-col p-4 border border-purple-600 rounded-lg">
+                          <span className="mt-4 text-lg text-gray-400">Perfil</span>
+                          <span className="mx-2 text-xs text-gray-400">Tamaño maximo</span>
+                          <span className="mx-2 text-xs text-gray-400">2MB</span>
+                          <input type="file" className="m-1 rounded-lg" />
                         </div>
                       </div>
-                    </div>
-
-                    <div className="flex justify-center gap-6 my-6">
-                      <Button type="submit" className="bg-[#2F9B86] ">
-                        Registrar Empresa
-                      </Button>
-
-                      <Button
-                        type="button"
-                        className="text-gray-900 border-2 border-gray-900 bg-blue-gray-50 hover:shadow-gray-300"
-                        onClick={closeModal}
-                      >
-                        Cancelar
-                      </Button>
+                      <div className="flex justify-center gap-6 my-6">
+                        <Button
+                          type="button"
+                          className="text-gray-900 border-2 border-gray-900 bg-blue-gray-50 hover:shadow-gray-300"
+                          onClick={closeModal}
+                        >
+                          Cancelar
+                        </Button>
+                        <button className="px-6 py-4 bg-[#2F9B86] text-white rounded-xl">Guardar</button>
+                      </div>
                     </div>
                   </form>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+      <Transition appear show={isOpenUpdate} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={closeModalUpdate}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex items-center justify-center min-h-full p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-xl p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                  <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
+                    Actualizar Item
+                  </Dialog.Title>
+                  <hr className="h-px w-[100%] bg-gray-200" />
+                  <div className="flex flex-col m-6 mt-2 ">
+                    <div className="flex flex-wrap justify-between">
+                      <div className="flex flex-col">
+                        <span className="my-2">Codigo</span>
+                        <input type="text" className="border border-gray-300 rounded-lg opacity-75" disabled value={producto.codigo} />
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="my-2">Nombre</span>
+                        <input type="text" className="border border-gray-300 rounded-lg" value={producto.Nombre} />
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap justify-between">
+                      <div className="flex flex-col">
+                        <span className="my-2">Categor&iacute;a</span>
+                        <input type="email" className="border border-gray-300 rounded-lg" value={producto.categoria} />
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="my-2">Precio Unitario</span>
+                        <input type="text" className="border border-gray-300 rounded-lg" value={producto.precio_Unitario} />
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap justify-between">
+                      <div className="flex flex-col">
+                        <span className="my-2">Unidad de Medida</span>
+                        <input type="text" className="border border-gray-300 rounded-lg" value={producto.unidad_Medida} />
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="my-2">Stock</span>
+                        <input type="text" className="border border-gray-300 rounded-lg opacity-75" disabled value={producto.stock} />
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-center mt-4">
+                      <div className="flex flex-col p-4 border border-purple-600 rounded-lg">
+                        <span className="mt-4 text-lg text-gray-400">Perfil</span>
+                        <span className="mx-2 text-xs text-gray-400">Tamaño maximo</span>
+                        <span className="mx-2 text-xs text-gray-400">2MB</span>
+                        <input type="file" className="m-1 rounded-lg" />
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap justify-between mt-4">
+                      <button
+                        onClick={closeModalUpdate}
+                        className="px-6 py-4 font-bold border border-gray-300 rounded-xl"
+                      >
+                        Cancelar
+                      </button>
+                      <button className="px-6 py-4 bg-[#2F9B86] text-white rounded-xl">Guardar</button>
+                    </div>
+                  </div>
                 </Dialog.Panel>
               </Transition.Child>
             </div>

@@ -13,10 +13,19 @@ export default function Login({onUser}) {
 
   const Logear = (dni,pass) =>{
     postLogin(dni,pass).then(data=>{
-      data.exception?setError({error: "credenciales incorrectas verifique su informacion"}):onUser({
-        name: data.user.name,
-        rol : data.user.role
-      })
+      if(data.exception){
+        setError({error: "credenciales incorrectas verifique su informacion"})
+      }else if(data.message==="El usuario ya tiene un token activo"){
+        setError({error: "La cuenta ya ha sido iniciada en otro dispositivo, por favor cierre sesion"})
+      }else{
+        document.cookie = `token=${data.token.access_token};path=/;samesite=strict`
+        console.log(document.cookie);
+        onUser({
+          name: data.user.name,
+          rol : data.user.role,
+          email : data.user.email
+        })
+      }
     })
   }
 

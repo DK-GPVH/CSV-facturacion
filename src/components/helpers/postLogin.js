@@ -5,10 +5,10 @@ export const postLogin = async(dni,password)=>{
     const res = await fetch('https://facturacion.sirusoluciones.com/api-v1/auth/login',{
         method: 'POST',
         body: formData,
+        mode : 'cors',
         headers:{
             'Accept': 'application/json'
         },
-        mode : 'cors'
     })
     const data= await res.json();
     return data
