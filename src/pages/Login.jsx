@@ -5,10 +5,12 @@ import { Input } from '@material-tailwind/react'
 import { Button } from '@material-tailwind/react'
 import { useState } from 'react'
 import { postLogin } from '../components/helpers/postLogin'
+import { cookieData } from '../components/helpers/CookieDates'
 
 export default function Login({onUser}) {
 
   const [error,setError] = useState(" ");
+
 
 
   const Logear = (dni,pass) =>{
@@ -19,7 +21,15 @@ export default function Login({onUser}) {
         setError({error: "La cuenta ya ha sido iniciada en otro dispositivo, por favor cierre sesion"})
       }else{
         document.cookie = `token=${data.token.access_token};path=/;samesite=strict`
+        document.cookie = `refresh=${data.token.refresh_token};path=/;samesite=strict`
+        document.cookie = `usuario=${data.user.name};path=/;samesite=strict`
+        document.cookie = `rol=${data.user.role};path=/;samesite=strict`
+        document.cookie = `email=${data.user.email};path=/;samesite=strict`
         console.log(document.cookie);
+        
+        console.log(cookieData("refresh"))
+        console.log(cookieData("usuario"))
+
         onUser({
           name: data.user.name,
           rol : data.user.role,
@@ -37,11 +47,12 @@ export default function Login({onUser}) {
 
     if(dni.length !==8){
       setError({error : "Cantidad de digitos de dni incorrectos"})
-    }else if(password.length !== 8){
-      setError({error: "La contraseña debe ser de 6 digitos"})
+    }else if(password.length < 8){
+      setError({error: "La contraseña debe tener por lo menos 8 digitos"})
     }else{
       Logear(dni,password);
     }   
+    console.log(typeof dni);
   }
   
   return (
@@ -59,7 +70,7 @@ export default function Login({onUser}) {
             </h1>
             <form  className="flex flex-col justify-center" onSubmit={submitHandler}>
               <div className="p-2">
-                <Input color="teal" label="DNI" type="number" id="dniValue"/>
+                <Input color="teal" label="DNI" id="dniValue" maxLength={8} minLength={8} pattern="[1-9]{8}"/>
               </div>
               <div className="p-2">
                 <Input
@@ -67,6 +78,7 @@ export default function Login({onUser}) {
                   label="CONTRASEÑA"
                   type="password"
                   id="passValue"
+                  minLength={8}
                 />
               </div>
               <span className="text-right text-[#2F9B86]">

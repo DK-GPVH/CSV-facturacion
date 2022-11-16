@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import Sidebar from './components/Sidebar'
@@ -22,12 +22,35 @@ import Perfil from './pages/user/Perfil/Perfil'
 import Login from './pages/Login'
 import ConfiguracionEmpresa from './pages/admin/ConfiguracionEmpresa'
 import { logoutLogin } from './components/helpers/logoutLogin'
+import { cookieData } from './components/helpers/CookieDates'
+import { refreshAccount } from './components/helpers/refreshAccount'
 
 function App() {
     const [user,setUser] = useState(null);
 
+
+    useEffect(() => {
+      if(document.cookie){
+        refreshAccount(cookieData("token"),cookieData("refresh")).then((data)=>{
+          if(data.message === "sesion renovada"){
+            document.cookie = `token=${data.access_token};path=/;samesite=strict`
+            document.cookie = `refresh=${data.refresh_token};path=/;samesite=strict`
+            console.log(data);
+            setUser({
+              name: cookieData("usuario"),
+              rol: cookieData("rol"),
+              email: cookieData("email")
+            })
+          }
+        })
+      } else{
+        console.log("No existe una cookie")
+      } 
+    }, [])
+    
+
     const Logout=(data)=>{
-        const token = document.cookie.replace('token=','')
+        const token = cookieData("token")
         data.salir&&logoutLogin(user.email,token).then((data)=>{
           if(data.message === "sesion cerrada"){
             console.log(data);
